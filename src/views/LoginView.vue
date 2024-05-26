@@ -1,0 +1,234 @@
+<template>
+  <div class="bg-page" @mousemove="parallax">
+    <el-row justify="center">
+      <el-col :span="6">
+        <h1 class="title">善食</h1>
+      </el-col>
+    </el-row>
+    <el-row justify="center" align="bottom">
+      <el-col :span="6" class="login">
+
+        <h2 style="text-align: center;">登录</h2>
+
+        <el-main>
+          <el-tabs v-model="activeName" class="tabs">
+            <el-tab-pane label="用户登录" name="user">
+              <el-form :model="LogInForm" :rules="rules" label-position="left" label-width="70px">
+                <el-form-item label="用户名" prop="username">
+                  <el-input v-model="LogInForm.username" />
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                  <el-input v-model="LogInForm.password" type="password" show-password />
+                </el-form-item>
+                <el-row jsutify="center">
+                  <el-col>
+                    <el-form-item>
+                      <el-button type="primary" style="width:200px;" @click="submitForm" >登录</el-button>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+
+                <el-row justify="end">
+                  <el-col :span="9">
+                    <el-link type="primary" @click="signUp">没有账号？注册一个</el-link>
+                  </el-col>
+                </el-row>
+
+              </el-form>
+            </el-tab-pane>
+            <el-tab-pane label="管理员登录" name="admin">
+              <el-form :model="AdminForm" :rules="rules" label-position="left" label-width="70px">
+                <el-form-item label="用户名" prop="name">
+                  <el-input v-model="AdminForm.name" />
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                  <el-input v-model="AdminForm.password" type="password" show-password />
+                </el-form-item>
+                <el-row jsutify="center">
+                  <el-col>
+                    <el-form-item>
+                      <el-button type="primary" style="width:200px;" @click="submitAdminForm" >登录</el-button>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row justify="end">
+                  <el-col :span="9">
+                    <el-link type="primary" @click="signUp">没有账号？注册一个</el-link>
+                  </el-col>
+                </el-row>
+              </el-form>
+            </el-tab-pane>
+          </el-tabs>
+        </el-main>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import store from "@/store/index.js";
+import axios from "axios";
+
+export default
+{
+  data()
+  {
+    return{
+      LogInForm:
+          {
+            username:'',
+            password:''
+          },
+      AdminForm:
+          {
+            name:'',
+            password:''
+          },
+      rules:
+          {
+            username:[
+              {required:true,message:'请输入用户名',trigger:'blur'},
+              {min:2,max:16,message:'用户名为2-16位',trigger:'blur'}
+            ],
+            password:[
+              {required:true,message:'请输入密码',trigger:'blur'},
+              {min:5,max:16,message:'密码长度为5-16位',trigger:'blur'}
+            ],
+            name:[
+              {required:true,message:'请输入用户名',trigger:'blur'},
+              {min:2,max:16,message:'用户名为2-16位',trigger:'blur'}
+            ]
+          },
+      remember:false,
+      activeName:'user',
+    }
+  },
+  mounted()
+  {
+
+  },
+  methods:
+      {
+        parallax(e)
+        {
+          document.querySelectorAll(".layer").forEach((layer) => {
+            const speed = layer.getAttribute("data-speed") || 2;
+            const x = (window.innerWidth - e.pageX * speed) / 100;
+            const y = (window.innerHeight - e.pageY * speed) / 100;
+            //设置 X轴和Y轴同时同时移动
+            layer.style.transform = `translateX(${x}px)`, `translateY(${y}px)`;
+          })
+        },
+
+        async submitForm()
+        {
+          try {
+            const response = await axios({
+              method: 'post',
+              url: 'http://localhost:8080/login',
+              data: {
+                name: this.LogInForm.username,
+                pwd: this.LogInForm.password
+              },
+
+            })
+
+            store.commit('setRole', this.activeName)
+            store.commit('setUsername', this.LogInForm.username)
+            store.commit('setToken', response.data.data.token)
+            console.log(store.state.role)
+            console.log(store.state.username)
+            console.log(store.state.token)
+            // 跳转至首页
+            this.$router.push({ name: 'RecipeSharePage' });
+
+
+          } catch (error) {
+            this.$message({
+              message: '用户名或密码错误',
+              type: 'error'
+            });
+            console.error('Error login', error);
+          }
+
+        },
+
+        async submitAdminForm()
+        {
+          try {
+            const response = await axios({
+              method: 'post',
+              url: 'http://localhost:8080/login',
+              data: {
+                name: this.AdminForm.name,
+                pwd: this.AdminForm.password
+              },
+              // headers: {
+              //   'Content-Type': 'application/x-www-form-urlencoded'
+              // }
+            })
+
+            store.commit('setRole', this.activeName)
+            store.commit('setUsername', this.AdminForm.name)
+            store.commit('setToken', response.data.data.token)
+            console.log(store.state.role)
+            console.log(store.state.username)
+            console.log(store.state.token)
+            // 跳转至首页
+            this.$router.push({ name: 'Audit' });
+
+
+          } catch (error) {
+            this.$message({
+              message: '用户名或密码错误',
+              type: 'error'
+            });
+            console.error('Error login', error);
+          }
+
+        },
+
+        signUp()
+        {
+          this.$router.push("/SignUp")
+        }
+      }
+}
+</script>
+
+<style scoped>
+.login
+{
+  width: auto;
+  height: auto;
+  background-color:white;
+  border-radius: 10px;
+}
+
+.title
+{
+  text-shadow: -3px 3px 1px #5f565e;
+  text-align: center;
+  margin-top: 30%;
+  color: white;
+  font-size: 40px;
+}
+
+.tabs > .el-tabs__content
+{
+  padding: 32px;
+  color: #6b778c;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.bg-page
+{
+  width: 100%;
+  height: 100vh;
+  background: url("../assets/background.png") center center no-repeat;
+  background-size: 100% 100%;
+  position:absolute;
+}
+
+</style>
