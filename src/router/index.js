@@ -4,6 +4,8 @@ import LoginView from "@/views/LoginView.vue";
 import SignUpView from "@/views/SignUpView.vue";
 import TweetsView from "@/views/TweetsView.vue";
 
+import FitnessChart from '@/components/dataVis.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -11,6 +13,8 @@ const router = createRouter({
       path: '/',
       name: 'tweets',
       component: TweetsView
+      name: 'FitnessChart',
+      component: FitnessChart
     },
     {
       path: '/about',
