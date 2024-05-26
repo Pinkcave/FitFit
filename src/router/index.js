@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'tweets',
-      component: TweetsView
+      component: TweetsView,
       name: 'FitnessChart',
       component: FitnessChart
     },
@@ -27,16 +27,16 @@ const router = createRouter({
     //登录页面
     {
       // path:'/login',
-      path:"/login",
-      name:'LogInView',
-      component:LoginView,
+      path: "/login",
+      name: 'LogInView',
+      component: LoginView,
       meta: { requiresAuth: false }
     },
     //注册页面
     {
-      path:'/SignUp',
-      name:'SignUpView',
-      component:SignUpView,
+      path: '/SignUp',
+      name: 'SignUpView',
+      component: SignUpView,
       meta: { requiresAuth: false }
     },
   ]
