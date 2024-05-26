@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from "@/views/LoginView.vue";
 import SignUpView from "@/views/SignUpView.vue";
+import TweetsView from "@/views/TweetsView.vue";
 
 import FitnessChart from '@/components/dataVis.vue'
 
@@ -10,6 +11,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'tweets',
+      component: TweetsView
       name: 'FitnessChart',
       component: FitnessChart
     },
@@ -24,7 +27,7 @@ const router = createRouter({
     //登录页面
     {
       // path:'/login',
-      path:"/",
+      path:"/login",
       name:'LogInView',
       component:LoginView,
       meta: { requiresAuth: false }
