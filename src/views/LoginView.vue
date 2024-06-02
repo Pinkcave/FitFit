@@ -68,6 +68,7 @@
 <script>
 import store from "@/store/index.js";
 import axios from "axios";
+import {userLogin} from "@/api/functions.js";
 
 export default
 {
@@ -123,6 +124,7 @@ export default
         async submitForm()
         {
           try {
+            const res = await userLogin(this.LogInForm)
             const response = await axios({
               method: 'post',
               url: 'http://localhost:8080/login',
