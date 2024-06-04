@@ -2,14 +2,21 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from "@/views/LoginView.vue";
 import SignUpView from "@/views/SignUpView.vue";
+import CourseView from '@/views/CourseView.vue';
 import TweetsView from "@/views/TweetsView.vue";
 import CameraView from "@/views/CameraView.vue";
-
 import FitnessChart from '@/components/dataVis.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    //课程报名
+    {
+      path:"/course",
+      name:'course',
+      component:CourseView,
+      meta: { requiresAuth: false }
+    }，
     {
       path: '/Tweets',
       name: 'tweets',
