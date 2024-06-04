@@ -4,7 +4,13 @@
       <el-row>
         <el-space :size="50">
           <video ref="video" autoplay></video>
-          <canvas ref="canvas"></canvas>
+          <canvas ref="canvas" style="display: none"></canvas>
+          <el-card>
+            <el-col>
+              <el-text>表情:{{emotion}}</el-text>
+              <el-text>{{emotionResult}}</el-text>
+            </el-col>
+          </el-card>
         </el-space>>
       </el-row>
       <el-row justify="center">
@@ -19,17 +25,26 @@
 
 <script>
 import request from "@/api/request.js";
+import io from 'socket.io-client';
+import {blobToBase64} from "@/api/blob2base64.js";
 
 export default {
   name: "Camera",
   data() {
     return {
       capturing: false,
-      captureInterval: null
+      captureInterval: null,
+      socket: null,
+      emotion: '',
+      emotionResult:''
     };
   },
   mounted() {
     this.initCamera();
+    // this.socket = io('http://localhost:5001');
+    // this.socket.on('video_stream', (data) => {
+    //   this.updateVideoStream(data);
+    // });
   },
   methods: {
     initCamera() {
@@ -69,6 +84,8 @@ export default {
       const dataURL = canvas.toDataURL('image/png');
       this.sendToBackend(dataURL).then(res => {
         console.log(res);
+        this.emotion = res.data.emotion;
+        this.emotionResult = res.data.emotion_result;
       });
     },
     sendToBackend(dataURL) {
@@ -76,9 +93,12 @@ export default {
       const formData = new FormData();
       formData.append('file', blob, 'capture.png');
 
-      return request('http://localhost:3000/upload', {
+      return request('http://localhost:5001/predict', {
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        },
         method: 'POST',
-        body: formData
+        data: formData
       })
     },
     dataURLtoBlob(dataURL) {
@@ -88,8 +108,29 @@ export default {
         array.push(binary.charCodeAt(i));
       }
       return new Blob([new Uint8Array(array)], { type: 'image/png' });
+    },
+    updateVideoStream(data) {
+      const video = this.$refs.video;
+      const canvas = this.$refs.feedback;
+      const context = canvas.getContext('2d');
+
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      const blob = new Blob([data], { type: 'video/webm' });
+      let dataUrl = URL.createObjectURL(blob);
+      let image = new Image();
+      image.onload = () => {
+        context.drawImage(image,0, 0, canvas.width, canvas.height);
+      }
+      image.src = dataUrl;
+    },
+  },
+  beforeDestroy() {
+    if (this.socket) {
+      this.socket.disconnect();
     }
-  }
+  },
 };
 </script>
 
