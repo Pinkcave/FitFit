@@ -16,7 +16,7 @@ const router = createRouter({
       name:'course',
       component:CourseView,
       meta: { requiresAuth: false }
-    }，
+    },
     {
       path: '/Tweets',
       name: 'tweets',

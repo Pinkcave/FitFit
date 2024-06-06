@@ -5,19 +5,19 @@
         <el-space :size="50">
           <video ref="video" autoplay></video>
           <canvas ref="canvas" style="display: none"></canvas>
-          <el-card>
-            <el-col>
-              <el-text>表情:{{emotion}}</el-text>
-              <el-text>{{emotionResult}}</el-text>
-            </el-col>
+          <el-card class="card">
+            <el-space direction="vertical">
+              <el-text class="text">Current Emotion:</el-text>
+              <el-text class="text">  {{emotion}}</el-text>
+              <el-text class="text" style="margin-top: 100px">Suggestion:</el-text>
+              <el-text class="text">  {{emotionResult}}</el-text>
+            </el-space>
           </el-card>
         </el-space>>
       </el-row>
       <el-row justify="center">
-        <el-space :size="50">
-          <el-button @click="startCapturing" size="large">Start Capturing</el-button>
-          <el-button @click="stopCapturing" size="large">Stop Capturing</el-button>
-        </el-space>
+          <el-button @click="startCapturing" size="large" type="success" v-show="!this.capturing">Start Capturing</el-button>
+          <el-button @click="stopCapturing" size="large"  type="warning" v-show="this.capturing">Stop Capturing</el-button>
       </el-row>
     </div>
     </el-space>
@@ -144,5 +144,13 @@ export default {
   width: 100%;
   max-width: 600px;
   margin-bottom: 10px;
+}
+.text{
+  font-size: 30px;
+  font-weight: bold;
+}
+.card{
+  width: 400px;
+  height: 450px;
 }
 </style>
