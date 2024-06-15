@@ -31,15 +31,15 @@
                         <el-icon>
                             <ChatLineRound />
                         </el-icon>
-                        评论
+                        健身推文
                     </a>
                 </label>
                 <label for="message" class="message">
                     <a href="#">
                         <el-icon>
-                            <Message />
+                            <Collection />
                         </el-icon>
-                        信息
+                        健身课程
                     </a>
                 </label>
                 <label for="star" class="star">
@@ -47,15 +47,15 @@
                         <el-icon>
                             <Star />
                         </el-icon>
-                        收藏
+                        AI爱健身
                     </a>
                 </label>
                 <label for="user" class="user">
                     <a href="#">
                         <el-icon>
-                            <User />
+                            <DataAnalysis />
                         </el-icon>
-                        用户
+                        数据统计
                     </a>
                 </label>
                 <div class="tab"></div>
