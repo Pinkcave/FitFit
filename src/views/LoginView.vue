@@ -1,16 +1,15 @@
 <template>
-  <div class="bg-page" @mousemove="parallax">
+  <div style="width: 1200px; height: 700px">
     <el-row justify="center">
-      <el-col :span="6">
-        <h1 class="title">善食</h1>
+      <el-col :span="8">
+        <h1 class="title">FitFit</h1>
       </el-col>
     </el-row>
+
     <el-row justify="center" align="bottom">
-      <el-col :span="6" class="login">
-
+      <el-card style="width: 50%; height: 60%; align-items: center">
+      <el-col class="login">
         <h2 style="text-align: center;">登录</h2>
-
-        <el-main>
           <el-tabs v-model="activeName" class="tabs">
             <el-tab-pane label="用户登录" name="user">
               <el-form :model="LogInForm" :rules="rules" label-position="left" label-width="70px">
@@ -59,8 +58,8 @@
               </el-form>
             </el-tab-pane>
           </el-tabs>
-        </el-main>
       </el-col>
+      </el-card>
     </el-row>
   </div>
 </template>
@@ -201,10 +200,11 @@ export default
 <style scoped>
 .login
 {
-  width: auto;
+  width: 500px;
   height: auto;
   background-color:white;
   border-radius: 10px;
+  align-items: center;
 }
 
 .title
@@ -218,6 +218,7 @@ export default
 
 .tabs > .el-tabs__content
 {
+  width:500px;
   padding: 32px;
   color: #6b778c;
   font-size: 32px;

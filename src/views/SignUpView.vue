@@ -1,55 +1,57 @@
 <template>
-  <div class="bg-page">
+  <div style="width: 1200px; height: 700px;">
     <el-row justify="center">
       <el-col :span="6">
         <h1 class="title">善食</h1>
       </el-col>
     </el-row>
-    <el-row justify="center" align="bottom">
-      <el-col :span="7" class="signup">
-        <h2 style="text-align: center;">用户注册</h2>
-        <el-container>
-          <el-main>
-            <el-form :model="SignUpForm" :rules="rules" label-position="left" label-width="80px">
-              <el-form-item label="昵称" prop="name">
-                <el-input v-model="SignUpForm.name"></el-input>
-              </el-form-item>
-              <el-form-item label="性别" prop="sex">
-                <el-radio-group v-model="SignUpForm.sex">
-                  <el-radio label="0">男</el-radio>
-                  <el-radio label="1">女</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="手机号" prop="phone">
-                <el-input v-model="SignUpForm.phone"></el-input>
-              </el-form-item>
-              <el-form-item label="密码" prop="password">
-                <el-input v-model="SignUpForm.password" show-password></el-input>
-              </el-form-item>
-              <el-form-item label="确认密码" prop="verifyPwd">
-                <el-input v-model="SignUpForm.verifyPwd" show-password></el-input>
-              </el-form-item>
-              <el-form-item label="邮箱" prop="email">
-                <el-input v-model="SignUpForm.email"></el-input>
-              </el-form-item>
-              <el-form-item label="验证码" prop="verifyCode">
-                <el-row gutter="20">
-                  <el-col :span="12">
-                    <el-input v-model="SignUpForm.verifyCode"></el-input>
-                  </el-col>
-                  <el-col :span="10">
-                    <el-button v-show="codeShow" type="primary" @click="sendVerifyCode">获取验证码</el-button>
-                    <el-button v-show="!codeShow" disabled="disabled">{{ count }}s</el-button>
-                  </el-col>
-                </el-row>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="SignUp" style="text-align: center;width:300px" size="large">完成注册</el-button>
-              </el-form-item>
-            </el-form>
-          </el-main>
-        </el-container>
-      </el-col>
+    <el-row justify="center">
+      <el-card style="width:50%">
+        <el-row justify="center" align="bottom">
+          <el-col :span="12">
+              <h2 style="text-align: center;padding: 20px">用户注册</h2>
+              <el-space :size="50">
+                <el-form :model="SignUpForm" :rules="rules" label-position="left" label-width="80px" style="width:400px">
+                  <el-form-item label="昵称" prop="name">
+                    <el-input v-model="SignUpForm.name"></el-input>
+                  </el-form-item>
+                  <el-form-item label="性别" prop="sex">
+                    <el-radio-group v-model="SignUpForm.sex">
+                      <el-radio label="0">男</el-radio>
+                      <el-radio label="1">女</el-radio>
+                    </el-radio-group>
+                  </el-form-item>
+                  <el-form-item label="手机号" prop="phone">
+                    <el-input v-model="SignUpForm.phone"></el-input>
+                  </el-form-item>
+                  <el-form-item label="密码" prop="password">
+                    <el-input v-model="SignUpForm.password" show-password></el-input>
+                  </el-form-item>
+                  <el-form-item label="确认密码" prop="verifyPwd">
+                    <el-input v-model="SignUpForm.verifyPwd" show-password></el-input>
+                  </el-form-item>
+                  <el-form-item label="邮箱" prop="email">
+                    <el-input v-model="SignUpForm.email"></el-input>
+                  </el-form-item>
+                  <el-form-item label="验证码" prop="verifyCode">
+                    <el-row gutter="20">
+                      <el-col :span="12">
+                        <el-input v-model="SignUpForm.verifyCode"></el-input>
+                      </el-col>
+                      <el-col :span="10">
+                        <el-button v-show="codeShow" type="primary" @click="sendVerifyCode">获取验证码</el-button>
+                        <el-button v-show="!codeShow" disabled="disabled">{{ count }}s</el-button>
+                      </el-col>
+                    </el-row>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button type="primary" @click="SignUp" style="text-align: center;width:300px" size="large">完成注册</el-button>
+                  </el-form-item>
+                </el-form>
+            </el-space>
+          </el-col>
+        </el-row>
+      </el-card>
     </el-row>
   </div>
 </template>
@@ -268,10 +270,9 @@ export default
 <style scoped>
 .signup
 {
-  width: auto;
+  width: 80%;
   height: auto;
   background-color:white;
-  box-shadow:0 0 10px black;
   border-radius: 4px;
 }
 
@@ -282,6 +283,11 @@ export default
   margin-top: 10%;
   color:white;
   font-size: 40px;
+}
+
+.el-col-12 {
+  flex: 0 0 50%;
+  max-width: 100%;
 }
 
 .bg-page

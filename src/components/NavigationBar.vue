@@ -234,6 +234,10 @@ body {
 </style>
 
 <script>
+
+export default {
+  name: "NavigationBar",
+}
 class Circle {
     constructor({ origin, speed, color, angle, context }) {
         this.origin = origin
