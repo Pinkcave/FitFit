@@ -154,6 +154,11 @@ const showNotification7 = () => {
         }
     })
 }
+
+function openInNewTab(url) {
+    var win = window.open(url, '_blank');
+    win.focus();
+}
 </script>
 
 <template>
@@ -233,8 +238,7 @@ const showNotification7 = () => {
             </div>
         </el-card>
         <el-card class="custom-card" style="max-width: 1000px; flex: 35;" shadow="hover" @click="showNotification7">
-            <img src="../assets/climbing.png" class="hover-zoom"
-                style="width: 100%; height: 250px; object-fit: cover;" />
+            <img src="../assets/climbing.png" class="hover-zoom" style="width: 100%; height: 250px; object-fit: cover;" />
             <div class="footer-content" style="background-color: #3453dd; text-align: left;">
                 <br>
                 <p style="font-size: 24px; margin-left: 25px; margin-right: 25px; color: white;">🧗‍♀️ 攀岩挑战</p><br>
@@ -243,6 +247,23 @@ const showNotification7 = () => {
                 </p><br><br><br><br><br><br>
             </div>
         </el-card>
+    </div>
+    <div class="background-container">
+        <p style="color: white; font-size: 24px;">关注我们</p><br>
+        <div class="image-wrapper">
+            <div class="image-container" @click="openInNewTab('https://www.tongji.edu.cn/')">
+                <img src="../assets/university.png" alt="公司简介" class="normal-image" style="background-color: #ffffff;">
+                <img src="../assets/university.png" alt="公司简介" class="hover-image" style="background-color: #ffffff;">
+                <div class="text-overlay">加入我们</div>
+            </div>
+            <div class="image-container" @click="openInNewTab('https://sse.tongji.edu.cn/')">
+                <img src="../assets/logo2.png" alt="公司简介2" class="normal-image">
+                <img src="../assets/logo2.png" alt="公司简介2" class="hover-image">
+                <div class="text-overlay">联系我们</div>
+            </div>
+        </div>
+        <br>
+        <p style="color: white; font-size: 20px;">FitFit&nbsp;&nbsp;·&nbsp;&nbsp;FitFit&nbsp;&nbsp;·&nbsp;&nbsp;FitFit</p>
     </div>
 </template>
 
@@ -407,5 +428,85 @@ const showNotification7 = () => {
 .blur-active .card_2,
 .blur-active .card_3 {
     pointer-events: none;
+}
+
+.background-container {
+    width: 100%;
+    background-color: #252525;
+    /* 设置黑色背景 */
+    padding: 40px 40px;
+    /* 添加上下内边距，移除左右内边距 */
+    box-sizing: border-box;
+    /* 确保内边距不会影响总宽度 */
+    position: relative;
+    margin-top: 1325px;
+    /* 调整顶部间距 */
+}
+
+.image-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.image-container {
+    position: relative;
+    width: calc(50% - 15px);
+    /* 每个图片容器的宽度为整体的50%，并减去间距的一半 */
+    height: 300px;
+    /* 调整为图片的实际高度 */
+    overflow: hidden;
+    cursor: pointer;
+    /* 鼠标变为手指 */
+}
+
+.normal-image,
+.hover-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    object-fit: cover;
+    /* 保持比例填充 */
+}
+
+.image-container:hover .normal-image,
+.image-container:hover .hover-image {
+    transform: scale(1.1);
+    /* 放大效果 */
+}
+
+.hover-image {
+    opacity: 0;
+}
+
+.image-container:hover .hover-image {
+    opacity: 1;
+}
+
+.image-container:hover .normal-image {
+    opacity: 0;
+}
+
+.text-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2em;
+    background: rgba(0, 0, 0, 0.2);
+    /* 半透明背景 */
+    transition: background 0.4s ease;
+}
+
+.image-container:hover .text-overlay {
+    background: rgba(0, 47, 255, 0.7);
+    /* 悬停时背景变为蓝色 */
 }
 </style>
