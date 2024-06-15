@@ -7,61 +7,81 @@
             pointer-events: none;
           "></canvas>
     <div class="head_con">
-
-    </div>
-    <!--
-        <img src="../assets/logo.png" alt="FitFit">
-    -->
-    <div class="wrapper">
-        <nav>
-            <input type="radio" name="tab" id="home" checked>
-            <input type="radio" name="tab" id="comment">
-            <input type="radio" name="tab" id="message">
-            <input type="radio" name="tab" id="star">
-            <input type="radio" name="tab" id="user">
-            <!--这一行是注释-->
-            <label for="home" class="home">
-                <a href="#">
-                    <el-icon>
-                        <House />
-                    </el-icon>
-                    首页
-                </a>
-            </label>
-            <label for="comment" class="comment">
-                <a href="#">
-                    <el-icon>
-                        <ChatLineRound />
-                    </el-icon>
-                    评论
-                </a>
-            </label>
-            <label for="message" class="message">
-                <a href="#">
-                    <el-icon>
-                        <Message />
-                    </el-icon>
-                    信息
-                </a>
-            </label>
-            <label for="star" class="star">
-                <a href="#">
-                    <el-icon>
-                        <Star />
-                    </el-icon>
-                    收藏
-                </a>
-            </label>
-            <label for="user" class="user">
-                <a href="#">
-                    <el-icon>
-                        <User />
-                    </el-icon>
-                    用户
-                </a>
-            </label>
-            <div class="tab"></div>
-        </nav>
+        <div class="logo-container">
+            <img src="../assets/logo.png" alt="FitFit" class="logo">
+        </div>
+        <div class="wrapper">
+            <nav>
+                <input type="radio" name="tab" id="home" checked>
+                <input type="radio" name="tab" id="comment">
+                <input type="radio" name="tab" id="message">
+                <input type="radio" name="tab" id="star">
+                <input type="radio" name="tab" id="user">
+                <!--这一行是注释-->
+                <label for="home" class="home">
+                    <a href="#">
+                        <el-icon>
+                            <House />
+                        </el-icon>
+                        首页
+                    </a>
+                </label>
+                <label for="comment" class="comment">
+                    <a href="#">
+                        <el-icon>
+                            <ChatLineRound />
+                        </el-icon>
+                        健身推文
+                    </a>
+                </label>
+                <label for="message" class="message">
+                    <a href="#">
+                        <el-icon>
+                            <Collection />
+                        </el-icon>
+                        健身课程
+                    </a>
+                </label>
+                <label for="star" class="star">
+                    <a href="#">
+                        <el-icon>
+                            <Star />
+                        </el-icon>
+                        AI爱健身
+                    </a>
+                </label>
+                <label for="user" class="user">
+                    <a href="#">
+                        <el-icon>
+                            <DataAnalysis />
+                        </el-icon>
+                        数据统计
+                    </a>
+                </label>
+                <div class="tab"></div>
+            </nav>
+        </div>
+        <div class="avatar-container">
+            <el-dropdown>
+                <img src="../assets/user.jpeg" alt="User" class="dropdownlink">
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item>
+                            <el-icon>
+                                <Setting />
+                            </el-icon>
+                            账号设置
+                        </el-dropdown-item>
+                        <el-dropdown-item>
+                            <el-icon>
+                                <Switch />
+                            </el-icon>
+                            切换账号
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+        </div>
     </div>
 </template>
 
@@ -76,9 +96,37 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     text-align: center;
     background: #fff;
+}
+
+.head_con {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 3%;
+    left: 0;
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 3%;
+}
+
+.logo-container {
+    margin-right: 20px;
+}
+
+.logo {
+    height: 50px;
+    display: block;
+}
+
+.wrapper,
+.avatar-container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
 }
 
 .wrapper {
@@ -87,14 +135,11 @@ body {
     background-color: white;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
     border-radius: 50px;
-    position: absolute;
-    top: 3%;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .wrapper nav {
     display: flex;
+    flex: 1;
     position: relative;
 }
 
@@ -153,6 +198,30 @@ body {
 
 .wrapper nav #user:checked~.tab {
     left: 80%;
+}
+
+.avatar-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    border: none;
+}
+
+.dropdownlink {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 5px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.20);
+}
+
+.example-showcase .el-dropdown-link {
+    cursor: pointer;
+    color: var(--el-color-primary);
+    display: flex;
+    align-items: center;
 }
 
 @media (min-width: 1024px) {
