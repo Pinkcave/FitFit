@@ -1,5 +1,6 @@
 <template>
-    <div class="card-container">
+    <NavigationBar />
+    <div class="card-container" style="margin-top:15%">
       <!-- 使用 Card 组件显示活动卡片 -->
       <el-card v-for="activity in activities" :key="activity.id" class="activity-card">
         <!-- 活动图片 -->
@@ -25,6 +26,7 @@
   
   <script setup>
   import { ref } from 'vue';
+  import NavigationBar from "@/components/NavigationBar.vue";
   
   // 活动数据
   const activities = ref([

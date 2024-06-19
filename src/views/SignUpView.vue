@@ -1,18 +1,18 @@
 <template>
   <div style="width: 1200px; height: 700px;">
     <el-row justify="center">
-      <el-col :span="6">
-        <h1 class="title">善食</h1>
+      <el-col :span="6" style="margin-top:50px">
+        <h1 class="title">FitFit</h1>
       </el-col>
     </el-row>
     <el-row justify="center">
-      <el-card style="width:50%">
+      <el-card style="width:60%;margin-top:50px">
         <el-row justify="center" align="bottom">
           <el-col :span="12">
               <h2 style="text-align: center;padding: 20px">用户注册</h2>
               <el-space :size="50">
                 <el-form :model="SignUpForm" :rules="rules" label-position="left" label-width="80px" style="width:400px">
-                  <el-form-item label="昵称" prop="name">
+                  <el-form-item label="真实姓名" prop="name">
                     <el-input v-model="SignUpForm.name"></el-input>
                   </el-form-item>
                   <el-form-item label="性别" prop="sex">
@@ -21,9 +21,9 @@
                       <el-radio label="1">女</el-radio>
                     </el-radio-group>
                   </el-form-item>
-                  <el-form-item label="手机号" prop="phone">
-                    <el-input v-model="SignUpForm.phone"></el-input>
-                  </el-form-item>
+<!--                  <el-form-item label="手机号" prop="phone">-->
+<!--                    <el-input v-model="SignUpForm.phone"></el-input>-->
+<!--                  </el-form-item>-->
                   <el-form-item label="密码" prop="password">
                     <el-input v-model="SignUpForm.password" show-password></el-input>
                   </el-form-item>
@@ -98,14 +98,6 @@ export default
             password:[
               {required:true,message:'请输入密码',trigger:'blur'},
               {min:6,max:16,message:'密码长度为6-16位',trigger:'blur'},
-              // {
-              //     validator:(rule,value,callback)=>{
-              //         if(value.indexOf(' '))
-              //             callback(new Error('密码不能包含空格'));
-              //         else
-              //             callback();
-              //     }
-              // }
             ],
             verifyPwd:[
               {required:true,message:'请确认密码',trigger:'blur'},
@@ -128,8 +120,6 @@ export default
             email:[
               {required:true,message:'请输入邮箱',trigger:'blur'},
               {
-                // type:'string',
-                // message:'邮箱地址错误',
                 trigger:'blur',
                 validator: (rule, value, callback) => {
                   const emailReg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
@@ -253,7 +243,7 @@ export default
             // console.log(store.state.username)
             // console.log(store.state.token)
             // 跳转至首页
-            this.$router.push({ name: 'LogInPage' });
+            this.$router.push({ name: 'LogInView' });
           } catch (error) {
             this.$message({
               message: '登录失败，用户名或密码错误',

@@ -6,10 +6,18 @@ import CourseView from '@/views/CourseView.vue';
 import TweetsView from "@/views/TweetsView.vue";
 import CameraView from "@/views/CameraView.vue";
 import FitnessChart from '@/components/dataVis.vue'
+import DataView from "@/views/DataView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+      //首页
+    {
+      path:"/",
+      name:'home',
+      component:HomeView,
+      meta: { requiresAuth: false }
+    },
     //课程报名
     {
       path:"/course",
@@ -45,12 +53,20 @@ const router = createRouter({
       component: SignUpView,
       meta: { requiresAuth: false }
     },
+    //相机页面
     {
-      path: '/',
+      path: '/camera',
       name: 'CameraView',
       component: CameraView,
       meta: { requiresAuth: false }
     },
+    //数据页面
+    {
+      path:'/data',
+      name:'dataVis',
+      component:DataView,
+      meta: { requiresAuth: false }
+    }
   ]
 })
 

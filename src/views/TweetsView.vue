@@ -272,7 +272,7 @@ function openInNewTab(url) {
     margin-top: 105px;
     width: 80vw;
     height: 600px;
-    margin-left: auto;
+    margin-left: -8%;
     margin-right: auto;
     position: relative;
     z-index: 1;
@@ -306,6 +306,7 @@ function openInNewTab(url) {
     gap: 20px;
     height: 500px;
     z-index: 1;
+    margin-left: -8%;
     /* 确保内容处于最底层 */
 }
 
@@ -431,7 +432,7 @@ function openInNewTab(url) {
 }
 
 .background-container {
-    width: 100%;
+    width: 99vw;
     background-color: #252525;
     /* 设置黑色背景 */
     padding: 40px 40px;
@@ -440,6 +441,7 @@ function openInNewTab(url) {
     /* 确保内边距不会影响总宽度 */
     position: relative;
     margin-top: 1325px;
+    margin-left: -18%;
     /* 调整顶部间距 */
 }
 
@@ -509,4 +511,5 @@ function openInNewTab(url) {
     background: rgba(0, 47, 255, 0.7);
     /* 悬停时背景变为蓝色 */
 }
+
 </style>

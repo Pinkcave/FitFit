@@ -7,14 +7,14 @@
     </el-row>
 
     <el-row justify="center" align="bottom">
-      <el-card style="width: 50%; height: 60%; align-items: center">
+      <el-card style="width: 60%; height: 100%; align-items: center;padding: 10px;margin-top:50px">
       <el-col class="login">
         <h2 style="text-align: center;">登录</h2>
           <el-tabs v-model="activeName" class="tabs">
             <el-tab-pane label="用户登录" name="user">
               <el-form :model="LogInForm" :rules="rules" label-position="left" label-width="70px">
-                <el-form-item label="用户名" prop="username">
-                  <el-input v-model="LogInForm.username" />
+                <el-form-item label="邮箱" prop="email">
+                  <el-input v-model="LogInForm.email" />
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
                   <el-input v-model="LogInForm.password" type="password" show-password />
@@ -35,28 +35,28 @@
 
               </el-form>
             </el-tab-pane>
-            <el-tab-pane label="管理员登录" name="admin">
-              <el-form :model="AdminForm" :rules="rules" label-position="left" label-width="70px">
-                <el-form-item label="用户名" prop="name">
-                  <el-input v-model="AdminForm.name" />
-                </el-form-item>
-                <el-form-item label="密码" prop="password">
-                  <el-input v-model="AdminForm.password" type="password" show-password />
-                </el-form-item>
-                <el-row jsutify="center">
-                  <el-col>
-                    <el-form-item>
-                      <el-button type="primary" style="width:200px;" @click="submitAdminForm" >登录</el-button>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row justify="end">
-                  <el-col :span="9">
-                    <el-link type="primary" @click="signUp">没有账号？注册一个</el-link>
-                  </el-col>
-                </el-row>
-              </el-form>
-            </el-tab-pane>
+<!--            <el-tab-pane label="管理员登录" name="admin">-->
+<!--              <el-form :model="AdminForm" :rules="rules" label-position="left" label-width="70px">-->
+<!--                <el-form-item label="用户名" prop="name">-->
+<!--                  <el-input v-model="AdminForm.name" />-->
+<!--                </el-form-item>-->
+<!--                <el-form-item label="密码" prop="password">-->
+<!--                  <el-input v-model="AdminForm.password" type="password" show-password />-->
+<!--                </el-form-item>-->
+<!--                <el-row jsutify="center">-->
+<!--                  <el-col>-->
+<!--                    <el-form-item>-->
+<!--                      <el-button type="primary" style="width:200px;" @click="submitAdminForm" >登录</el-button>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
+<!--                </el-row>-->
+<!--                <el-row justify="end">-->
+<!--                  <el-col :span="9">-->
+<!--                    <el-link type="primary" @click="signUp">没有账号？注册一个</el-link>-->
+<!--                  </el-col>-->
+<!--                </el-row>-->
+<!--              </el-form>-->
+<!--            </el-tab-pane>-->
           </el-tabs>
       </el-col>
       </el-card>
@@ -76,7 +76,7 @@ export default
     return{
       LogInForm:
           {
-            username:'',
+            email:'',
             password:''
           },
       AdminForm:
@@ -97,7 +97,25 @@ export default
             name:[
               {required:true,message:'请输入用户名',trigger:'blur'},
               {min:2,max:16,message:'用户名为2-16位',trigger:'blur'}
-            ]
+            ],
+            email:[
+              {required:true,message:'请输入邮箱',trigger:'blur'},
+              {
+                trigger:'blur',
+                validator: (rule, value, callback) => {
+                  const emailReg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+                  if(!value)
+                    callback();
+                  else
+                  {
+                    if(emailReg.test(value))
+                      callback();
+                    else
+                      callback(new Error("邮箱地址非法"));
+                  }
+                }
+              }
+            ],
           },
       remember:false,
       activeName:'user',
@@ -123,25 +141,21 @@ export default
         async submitForm()
         {
           try {
-            const res = await userLogin(this.LogInForm)
             const response = await axios({
               method: 'post',
-              url: 'http://localhost:8080/login',
+              url: 'http://localhost:8080/user/login',
               data: {
-                name: this.LogInForm.username,
-                pwd: this.LogInForm.password
+                email: this.LogInForm.email,
+                password: this.LogInForm.password
               },
-
             })
 
             store.commit('setRole', this.activeName)
-            store.commit('setUsername', this.LogInForm.username)
             store.commit('setToken', response.data.data.token)
             console.log(store.state.role)
-            console.log(store.state.username)
             console.log(store.state.token)
             // 跳转至首页
-            this.$router.push({ name: 'RecipeSharePage' });
+            this.$router.push({ name: 'home' });
 
 
           } catch (error) {
@@ -205,6 +219,7 @@ export default
   background-color:white;
   border-radius: 10px;
   align-items: center;
+  margin-left:90px
 }
 
 .title

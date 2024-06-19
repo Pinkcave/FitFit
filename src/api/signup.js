@@ -4,11 +4,10 @@ export function signup(params) {
         url: '/user/register',
         method: 'post',
         data: {
-            name: params.name,
+            realName: params.name,
             gender: params.sex,
-            phoneNumber: params.phone,
-            pwd: params.password,
-            mailBox: params.email,
+            password: params.password,
+            email: params.email,
             verifyCode: params.verifyCode
         }
     })

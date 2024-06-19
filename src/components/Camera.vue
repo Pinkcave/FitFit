@@ -1,7 +1,7 @@
 <template>
     <el-space size="50">
     <div class="camera">
-      <el-row>
+      <el-row style="margin-top: 20%;">
         <el-space :size="50">
           <video ref="video" autoplay></video>
           <canvas ref="canvas" style="display: none"></canvas>
